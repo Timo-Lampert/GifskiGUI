@@ -14,11 +14,13 @@ public class GifskiGUI extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GifskiGUI.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GifskiGUI.class.getResource("GifskiMain.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+        GifskiController gc = new GifskiController();
+        gc.setStage(stage);
         stage.setTitle("Hello!");
-        stage.getIcons().add(new Image("file:src/main/resources/com/example/demo2/gifski.png"));
+        stage.getIcons().add(new Image("file:src/main/resources/com/gui/GifskiGUI/gifski.png"));
         stage.setScene(scene);
 
 
