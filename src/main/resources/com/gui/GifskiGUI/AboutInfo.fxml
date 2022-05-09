@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="bpane" minHeight="500.0" minWidth="500.0" style="-fx-background-color: #181818;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.GifskiGUI.GifskiController">
+    <padding>
+        <Insets bottom="0" left="0" right="0" top="0" />
+    </padding>
+
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="473.0" prefWidth="522.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="471.0" prefWidth="561.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="150.0" />
+        </items>
+      </SplitPane>
+   </children>
+   <left>
+      <VBox prefHeight="500.0" prefWidth="100.0" style="-fx-background-color: #101010; -fx-background-color: linear-gradient(from 255px 255px to 100px 200px, #444444, rgba(1,1,1,0));" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@InfoIcon.png" />
+               </image></ImageView>
+            <MFXButton fx:id="Gifski" mnemonicParsing="false" onAction="#switchScene" prefHeight="88.0" prefWidth="104.0" rippleColor="#2c27d9" style="-fx-background-color: linear-gradient(from 255px 255px to 100px 100px, #331266, rgba(1,1,1,0));" text="Gifski" textFill="WHITE" />
+            <MFXButton fx:id="Info" disable="true" layoutX="10.0" layoutY="53.0" mnemonicParsing="false" onAction="#switchScene" prefHeight="88.0" prefWidth="104.0" rippleColor="#2c27d9" style="-fx-background-color: rgba(10,10,10,0.1);" text="Info" textFill="WHITE" />
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <GridPane alignment="CENTER_LEFT" prefHeight="293.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(from 25px 25px to 100px 200px, #331266, rgba(1,1,1,0));">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="197.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="203.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="122.0" minHeight="0.0" prefHeight="65.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="307.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="82.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="23.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="38.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="88.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="303.0" minHeight="10.0" prefHeight="111.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Gifski made by Kornel Lesinski" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="GUI By Timo" textAlignment="CENTER" wrappingWidth="77.13671875" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Text accessibleRole="HYPERLINK" accessibleText="https://gif.ski/" fill="#156aed" onMouseClicked="#redirectToSite" strokeType="OUTSIDE" strokeWidth="0.0" text="https://gif.ski/" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+   </right>
+</BorderPane>
