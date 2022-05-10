@@ -23,14 +23,17 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 
 public class GifskiController {
     @FXML
     BorderPane bpane;
-    public void setStage(Stage stage){
-        this.stage=stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
+
     public Stage stage;
     @FXML
     private Label welcomeText;
@@ -43,19 +46,20 @@ public class GifskiController {
 
     /**
      * Gets Images to be passed on to Gifski
+     *
      * @param onaction
      */
     @FXML
-    protected void getInputFile(ActionEvent onaction){
+    protected void getInputFile(ActionEvent onaction) {
         FileChooser dchooser = new FileChooser();
 
         dchooser.setTitle("Open Resource File");
 
         File dir = dchooser.showOpenDialog((Stage) bpane.getScene().getWindow());
-        if(dir !=null){
-            Node n =(Node)onaction.getSource();
+        if (dir != null) {
+            Node n = (Node) onaction.getSource();
             Scene sc = n.getScene();
-             TextField tx = (TextField) sc.lookup("#dirinput");
+            TextField tx = (TextField) sc.lookup("#dirinput");
             tx.setText(dir.getAbsolutePath());
 
             Image imng = new Image(dir.toURI().toString());
@@ -66,15 +70,15 @@ public class GifskiController {
             return;
         }
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Not a directory, you dumbfuck");
-        alert.setContentText("Choose a fucking directory");
+        alert.setTitle("Not an image");
+        alert.setContentText("Choose an image");
         alert.showAndWait();
 
 
     }
 
     /**
-     *Takes an Object and sets the scene to ID of object
+     * Takes an Object and sets the scene to ID of object
      *
      * @param actionEvent
      */
@@ -82,33 +86,36 @@ public class GifskiController {
     public void switchScene(ActionEvent actionEvent) {
 
 
-        try {
-            Node idnode = (Node)actionEvent.getSource();
-            FXMLLoader fxmlLoader;
-            String SceneName = "ErrorPage";
-            switch (idnode.getId()) {
-                case "Info":
-                    SceneName = "AboutInfo.fxml";
-                    break;
-                case "Gifski":
-                    SceneName = "GifskiMain.fxml";
-            }
-            fxmlLoader = new FXMLLoader(GifskiGUI.class.getResource(SceneName));
-            Scene scene = new Scene(fxmlLoader.load(), 500, 500);
-            Stage stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (Exception e) {
-            System.out.println(e);
+        Node idnode = (Node) actionEvent.getSource();
+        FXMLLoader fxmlLoader;
+        String SceneName = "ErrorPage";
+        switch (idnode.getId()) {
+            case "Info":
+                SceneName = "AboutInfo.fxml";
+                break;
+            case "Gifski":
+                SceneName = "GifskiMain.fxml";
         }
+        try {
+            setScene(SceneName, (Node) actionEvent.getSource());
+
+        } catch (IOException e) {
+            System.out.println("Error setting scene");
+        }
+    }
 
 
-
+    public void setScene(String sceneFileName, Node node) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(GifskiGUI.class.getResource(sceneFileName));
+        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+        Stage stage = (Stage) (node.getScene().getWindow());
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
      * Links to Website
+     *
      * @param mouseEvent
      */
     @FXML
@@ -119,7 +126,7 @@ public class GifskiController {
 
 
             Desktop.getDesktop().browse(new URI("https://gif.ski/"));
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
