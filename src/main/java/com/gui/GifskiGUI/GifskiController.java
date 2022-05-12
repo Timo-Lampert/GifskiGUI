@@ -24,32 +24,36 @@ import java.net.URI;
 
 public class GifskiController {
 
-    String img;
-    String saveTo;
-    int quality =50;
-    @FXML
-    BorderPane bpane;
     @FXML
     public MFXTextField fps;
+    public Stage stage;
+    String img;
+    String saveTo;
+    int quality = 50;
+    @FXML
+    BorderPane bpane;
+    Image realimg;
+    @FXML
+    ImageView preview;
+    @FXML
+    ImageView prev2;
+    @FXML
+    ImageView prev3;
+    @FXML
+    private Label welcomeText;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    public Stage stage;
-    @FXML
-    private Label welcomeText;
 
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-
-
     @FXML
-    protected void setOutputFile(ActionEvent action) throws InvalidClassException{
-        File dir = getFilePath(action,true);
+    protected void setOutputFile(ActionEvent action) throws InvalidClassException {
+        File dir = getFilePath(action, true);
         Node n = (Node) action.getSource();
         Scene sc = n.getScene();
         TextField tx = (TextField) sc.lookup("#fileoutput");
@@ -57,16 +61,15 @@ public class GifskiController {
         saveTo = dir.getAbsolutePath();
     }
 
-
-    protected Node getElementByID(Node node,String id){
+    protected Node getElementByID(Node node, String id) {
         Scene sc = node.getScene();
-        Node tx =  sc.lookup(id);
+        Node tx = sc.lookup(id);
         return tx;
     }
-    Image realimg;
+
     @FXML
-    protected void setInputFile(ActionEvent action) throws InvalidClassException{
-        File dir = getFilePath(action,false);
+    protected void setInputFile(ActionEvent action) throws InvalidClassException {
+        File dir = getFilePath(action, false);
 
         Image image = new Image(dir.toURI().toString());
         this.preview.setImage(image);
@@ -85,15 +88,15 @@ public class GifskiController {
      * @param onaction
      */
     @FXML
-    protected File getFilePath(ActionEvent onaction,boolean saveDialog) throws InvalidClassException {
+    protected File getFilePath(ActionEvent onaction, boolean saveDialog) throws InvalidClassException {
         FileChooser dchooser = new FileChooser();
 
         dchooser.setTitle("Open Resource File");
         File dir;
-        if(saveDialog) {
+        if (saveDialog) {
             dchooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.gif"));
-            dir=dchooser.showSaveDialog(bpane.getScene().getWindow());
-        }else {
+            dir = dchooser.showSaveDialog(bpane.getScene().getWindow());
+        } else {
             dir = dchooser.showOpenDialog((Stage) bpane.getScene().getWindow());
         }
         //Adding action on the menu item
@@ -134,50 +137,42 @@ public class GifskiController {
             System.out.println("Error setting scene");
         }
     }
+
     //Factory?
-    public String constructCMD(String input, String output , int fps, int width, int height, int quality){
+    public String constructCMD(String input, String output, int fps, int width, int height, int quality) {
 
-        String path ="cd "+System.getProperty("user.dir")+"\\src\\main\\java\\com\\gui\\GifskiGUI\\gifskiwin\\ && " +"gifski.exe ";
-        String in = input+"/*";
-        String framerate = " --fps "+fps;
-        String out = " --output "+output;
-        String sizeX = " --width "+width;
-        String sizeY = " --height "+height;
-        String qual = " --quality "+quality;
+        String path = "cd " + System.getProperty("user.dir") + "\\src\\main\\java\\com\\gui\\GifskiGUI\\gifskiwin\\ && " + "gifski.exe ";
+        String in = input + "/*";
+        String framerate = " --fps " + fps;
+        String out = " --output " + output;
+        String sizeX = " --width " + width;
+        String sizeY = " --height " + height;
+        String qual = " --quality " + quality;
 
-        return path+in+framerate+sizeX+sizeY+qual+out;
+        return path + in + framerate + sizeX + sizeY + qual + out;
     }
-
-
-    @FXML
-    ImageView preview;
-    @FXML
-    ImageView prev2;
-
-    @FXML
-    ImageView prev3;
-
 
 
     //TODO: Make file path variable
 
-
-    public void convert()throws IOException{
+    public void convert() throws IOException {
         setQuality();
 
         System.out.println(quality);
 
 
-                ProcessBuilder builder = new ProcessBuilder(
-                        "cmd.exe", "/c", constructCMD(this.img,this.saveTo,Integer.parseInt(this.fps.getText()),realimg.widthProperty().intValue(), realimg.heightProperty().intValue(),this.quality));
-                builder.redirectErrorStream(true);
-                Process p = builder.start();
-                BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                String line;
-                while (true) {
-                    line = r.readLine();
-                    if (line == null) { break; }
-                    System.out.println(line);
+        ProcessBuilder builder = new ProcessBuilder(
+                "cmd.exe", "/c", constructCMD(this.img, this.saveTo, Integer.parseInt(this.fps.getText()), realimg.widthProperty().intValue(), realimg.heightProperty().intValue(), this.quality));
+        builder.redirectErrorStream(true);
+        Process p = builder.start();
+        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while (true) {
+            line = r.readLine();
+            if (line == null) {
+                break;
+            }
+            System.out.println(line);
 
         }
 
@@ -212,8 +207,7 @@ public class GifskiController {
 
 
     public void setQuality() {
-           this.quality=(int)((MFXSlider)bpane.getScene().lookup("#imgquality")).getValue();
-
+        this.quality = (int) ((MFXSlider) bpane.getScene().lookup("#imgquality")).getValue();
 
 
     }
