@@ -1,6 +1,7 @@
- html*
+ *
 {
-    font-size: 1em !important;
-    color: #000 !important;
+    -fx-font-size: 1.2em ;
+    font-weight: bolder;
 
+     -fx-font-family: "Arial Black" ;
 }

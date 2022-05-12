@@ -59,7 +59,7 @@
                   <RowConstraints maxHeight="160.0" minHeight="17.0" prefHeight="39.0" />
               </rowConstraints>
                <children>
-                  <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#getInputFile" prefHeight="58.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#setInputFile" prefHeight="58.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Output Gif" textAlignment="CENTER" wrappingWidth="77.13671875" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                   <ImageView id="preview" fitHeight="235.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <image>
@@ -75,10 +75,10 @@
                         <Image url="@foldericon.png" />
                      </image>
                   </ImageView>
-                  <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" prefHeight="56.0" prefWidth="129.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#setOutputFile" prefHeight="56.0" prefWidth="129.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <MFXTextField id="dirinput" prefHeight="49.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <MFXTextField layoutX="209.0" layoutY="86.0" prefHeight="49.0" prefWidth="72.0" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <MFXTextField prefHeight="49.0" prefWidth="85.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <MFXTextField fx:id="fileoutput" prefHeight="49.0" prefWidth="85.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <ImageView fitHeight="76.0" fitWidth="43.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <image>
                         <Image url="@foldericon.png" />
@@ -113,7 +113,7 @@
                      <children>
                         <MFXTextField floatingText="Width (px)" />
                         <MFXTextField floatingText="Height (px)" prefHeight="26.0" prefWidth="85.0" GridPane.columnIndex="1" />
-                        <MFXSlider prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                        <MFXSlider fx:id="imgquality" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quality" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                      </children>
                      <effect>
@@ -125,9 +125,9 @@
                         <DropShadow />
                      </effect>
                      <center>
-                        <MFXButton mnemonicParsing="false" prefHeight="74.0" prefWidth="83.0" rippleColor="#0a0a0a" text="Go" BorderPane.alignment="CENTER">
+                        <MFXButton mnemonicParsing="false" onContextMenuRequested="#convert" onMouseClicked="#convert" prefHeight="74.0" prefWidth="83.0" rippleColor="#0a0a0a" text="Go" BorderPane.alignment="CENTER">
                            <graphic>
-                              <ImageView fitHeight="23.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="23.0" fitWidth="22.0" onInputMethodTextChanged="#convert" onMouseClicked="#convert" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@playbutton.png" />
                                  </image>

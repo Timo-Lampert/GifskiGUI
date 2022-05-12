@@ -1,18 +1,19 @@
 package com.gui.GifskiGUI;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXSlider;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Material;
@@ -21,12 +22,16 @@ import javafx.stage.FileChooser;
 import com.gui.GifskiGUI.GifskiGUI;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 
 public class GifskiController {
+
+    String img;
+    String saveTo;
+    int quality =50;
     @FXML
     BorderPane bpane;
 
@@ -44,36 +49,62 @@ public class GifskiController {
     }
 
 
+
+    @FXML
+    protected void setOutputFile(ActionEvent action) throws InvalidClassException{
+        File dir = getFilePath(action,true);
+        Node n = (Node) action.getSource();
+        Scene sc = n.getScene();
+        TextField tx = (TextField) sc.lookup("#fileoutput");
+        tx.setText(dir.getAbsolutePath());
+        saveTo = dir.getAbsolutePath();
+    }
+
+
+    protected Node getElementByID(Node node,String id){
+        Scene sc = node.getScene();
+        Node tx =  sc.lookup(id);
+        return tx;
+    }
+    @FXML
+    protected void setInputFile(ActionEvent action) throws InvalidClassException{
+        File dir = getFilePath(action,false);
+        Node n = (Node) action.getSource();
+        Scene sc = n.getScene();
+        TextField tx = (TextField) sc.lookup("#dirinput");
+        tx.setText(dir.getAbsolutePath());
+        ImageView preview = (ImageView) sc.lookup("#preview");
+        preview.setImage(new Image(dir.toURI().toString()));
+        this.img = dir.getParent();
+
+    }
+
     /**
-     * Gets Images to be passed on to Gifski
+     * Gets Path of selected image
      *
      * @param onaction
      */
     @FXML
-    protected void getInputFile(ActionEvent onaction) {
+    protected File getFilePath(ActionEvent onaction,boolean saveDialog) throws InvalidClassException {
         FileChooser dchooser = new FileChooser();
 
         dchooser.setTitle("Open Resource File");
-
-        File dir = dchooser.showOpenDialog((Stage) bpane.getScene().getWindow());
+        File dir;
+        if(saveDialog) {
+            dchooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.gif"));
+            dir=dchooser.showSaveDialog(bpane.getScene().getWindow());
+        }else {
+            dir = dchooser.showOpenDialog((Stage) bpane.getScene().getWindow());
+        }
+        //Adding action on the menu item
         if (dir != null) {
-            Node n = (Node) onaction.getSource();
-            Scene sc = n.getScene();
-            TextField tx = (TextField) sc.lookup("#dirinput");
-            tx.setText(dir.getAbsolutePath());
-
-            Image imng = new Image(dir.toURI().toString());
-
-            ImageView preview = (ImageView) sc.lookup("#preview");
-            preview.setImage(imng);
-
-            return;
+            return dir;
         }
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Not an image");
         alert.setContentText("Choose an image");
         alert.showAndWait();
-
+        throw new InvalidClassException("Bad FileType");
 
     }
 
@@ -104,6 +135,31 @@ public class GifskiController {
         }
     }
 
+    //TODO: Make file path variable
+
+    @FXML
+    public void convert()throws IOException{
+        setQuality();
+        System.out.println(quality);
+
+
+        String path ="gifski.exe "+this.img+"/*";
+        System.out.println(path);
+                ProcessBuilder builder = new ProcessBuilder(
+                        "cmd.exe", "/c", "cd C:\\Users\\Timo\\IdeaProjects\\demo2\\src\\main\\java\\com\\gui\\GifskiGUI\\gifskiwin\\ && " +path+" --quality"+quality+" --output "+this.saveTo);
+                builder.redirectErrorStream(true);
+                Process p = builder.start();
+                BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String line;
+                while (true) {
+                    line = r.readLine();
+                    if (line == null) { break; }
+                    System.out.println(line);
+
+        }
+
+    }
+
 
     public void setScene(String sceneFileName, Node node) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GifskiGUI.class.getResource(sceneFileName));
@@ -129,5 +185,13 @@ public class GifskiController {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+
+    public void setQuality() {
+           this.quality=Integer.parseInt( ""+((MFXSlider)bpane.getScene().lookup("#imgquality")).getValue());
+
+
+
     }
 }
