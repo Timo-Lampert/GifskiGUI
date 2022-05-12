@@ -146,7 +146,7 @@ public class GifskiController {
         String path ="gifski.exe "+this.img+"/*";
         System.out.println(path);
                 ProcessBuilder builder = new ProcessBuilder(
-                        "cmd.exe", "/c", "cd C:\\Users\\Timo\\IdeaProjects\\demo2\\src\\main\\java\\com\\gui\\GifskiGUI\\gifskiwin\\ && " +path+" --quality"+quality+" --output "+this.saveTo);
+                        "cmd.exe", "/c", "cd C:\\Users\\Timo\\IdeaProjects\\demo2\\src\\main\\java\\com\\gui\\GifskiGUI\\gifskiwin\\ && " +path+" --quality "+quality+" --width 1280 --height 800"+" --output "+this.saveTo);
                 builder.redirectErrorStream(true);
                 Process p = builder.start();
                 BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -189,7 +189,7 @@ public class GifskiController {
 
 
     public void setQuality() {
-           this.quality=Integer.parseInt( ""+((MFXSlider)bpane.getScene().lookup("#imgquality")).getValue());
+           this.quality=(int)((MFXSlider)bpane.getScene().lookup("#imgquality")).getValue();
 
 
 
