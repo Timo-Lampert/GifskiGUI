@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
@@ -31,7 +32,7 @@
                   <Image url="@gifski.png" />
                </image>
                <effect>
-                  <InnerShadow height="37.18" offsetX="-10.0" radius="27.384999999999998" width="74.36">
+                  <InnerShadow height="55.77" offsetX="-10.0" radius="31.29" width="71.39">
                      <color>
                         <Color red="0.11973684281110764" green="0.08552631735801697" blue="0.34210526943206787" />
                      </color>
@@ -110,47 +111,88 @@
             <GridPane alignment="CENTER_LEFT" prefHeight="500.0" prefWidth="372.0" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="117.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="0.0" prefWidth="83.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="130.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="66.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="0.0" prefWidth="97.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="116.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="0.0" prefWidth="62.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="270.0" minWidth="0.0" prefWidth="12.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
 
                   <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="89.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="74.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="44.0" />
-                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="15.0" />
-                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="70.0" />
-                  <RowConstraints maxHeight="188.0" minHeight="0.0" prefHeight="76.0" />
-                  <RowConstraints maxHeight="160.0" minHeight="0.0" prefHeight="32.0" />
-                  <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="47.0" />
+                  <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="46.0" />
+                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="26.0" />
+                  <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="33.0" />
+                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="93.0" />
+                  <RowConstraints maxHeight="188.0" minHeight="0.0" prefHeight="57.0" />
+                  <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="37.0" />
               </rowConstraints>
                <children>
-                  <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#getInputFile" prefHeight="58.0" prefWidth="130.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <MFXTextField floatingText="Repeat" promptText="-1" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="77.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <ImageView id="preview" fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <ImageView id="preview" fx:id="prev3" fitHeight="93.0" fitWidth="83.0" layoutX="135.0" layoutY="23.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                      <image>
                         <Image url="@default-placeholder.png" />
                      </image>
+                     <effect>
+                        <DropShadow spread="0.28">
+                           <color>
+                              <Color red="0.031676411628723145" green="0.057545483112335205" blue="0.34210526943206787" />
+                           </color>
+                        </DropShadow>
+                     </effect>
                   </ImageView>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                  <ImageView fitHeight="76.0" fitWidth="43.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                     <GridPane.margin>
-                        <Insets left="85.0" />
-                     </GridPane.margin>
+                  <ImageView id="preview" fx:id="prev2" fitHeight="144.0" fitWidth="101.0" layoutX="10.0" layoutY="-80.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@default-placeholder.png" />
+                     </image>
+                     <effect>
+                        <DropShadow spread="0.28">
+                           <color>
+                              <Color red="0.031676411628723145" green="0.057545483112335205" blue="0.34210526943206787" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </ImageView>
+                  <ImageView id="preview" fx:id="preview" fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@default-placeholder.png" />
+                     </image>
+                     <effect>
+                        <DropShadow spread="0.28">
+                           <color>
+                              <Color red="0.031676411628723145" green="0.057545483112335205" blue="0.34210526943206787" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </ImageView>
+                  <MFXTextField id="dirinput" floatMode="BORDER" floatingText="Input file" onAction="#setInputFile" prefHeight="38.0" prefWidth="163.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                  <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#setInputFile" opacity="0.0" prefHeight="33.0" prefWidth="71.0" rippleColor="#ff14e8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                  <ImageView fitHeight="42.0" fitWidth="62.0" mouseTransparent="true" onMouseClicked="#setInputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                      <image>
                         <Image url="@foldericon.png" />
                      </image>
                   </ImageView>
-                  <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" prefHeight="56.0" prefWidth="129.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <MFXTextField id="dirinput" floatingText="Input file" prefHeight="49.0" prefWidth="62.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <MFXTextField floatingText="Height (px)" prefHeight="26.0" prefWidth="85.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <MFXTextField layoutX="209.0" layoutY="86.0" prefHeight="49.0" prefWidth="72.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                  <MFXTextField floatingText="Output Gif" prefHeight="49.0" prefWidth="85.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <MFXSlider accessibleText="Sets compression factor" prefHeight="8.0" prefWidth="148.0" value="50.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                  <MFXButton alignment="CENTER" mnemonicParsing="false" prefHeight="74.0" prefWidth="83.0" rippleColor="#0a0a0a" text="Go" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                  <HBox prefHeight="66.0" prefWidth="218.0" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <MFXTextField layoutX="209.0" layoutY="86.0" prefHeight="49.0" prefWidth="72.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <MFXTextField fx:id="fileoutput" floatMode="BORDER" floatingText="Output Gif" graphicTextGap="20.0" onAction="#setOutputFile" prefHeight="38.0" prefWidth="165.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></MFXTextField>
+                  <ImageView fitHeight="43.0" fitWidth="62.0" mouseTransparent="true" onMouseClicked="#setOutputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                     <image>
+                        <Image url="@foldericon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </ImageView>
+                  <MFXButton blendMode="COLOR_BURN" mnemonicParsing="false" onAction="#setOutputFile" opacity="0.0" prefHeight="33.0" prefWidth="37.0" rippleAnimateShadow="true" rippleColor="#f200ff" text="Button" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                  <MFXTextField floatingText="Height (px)" prefHeight="26.0" prefWidth="85.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <MFXButton alignment="CENTER" mnemonicParsing="false" onAction="#convert" prefHeight="30.0" prefWidth="64.0" rippleColor="#0a0a0a" text="Go" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10">
                      <graphic>
                         <ImageView fitHeight="23.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -159,16 +201,8 @@
                         </ImageView>
                      </graphic>
                   </MFXButton>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quality" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="TOP" />
-                  <ImageView fitHeight="76.0" fitWidth="43.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                     <image>
-                        <Image url="@foldericon.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets left="85.0" />
-                     </GridPane.margin>
-                  </ImageView>
-                  <Line endX="-300.0" endY="-100.0" startX="-300.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.rowSpan="2">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quality" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP" />
+                  <Line endX="-500.0" endY="-200.0" startX="-500.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                      <effect>
                         <Glow level="0.77" />
                      </effect>
@@ -177,19 +211,19 @@
                            <stops>
                               <Stop>
                                  <color>
-                                    <Color red="0.28302469849586487" green="0.06481481343507767" blue="1.0" />
+                                    <Color red="0.1616750955581665" green="0.1599999964237213" blue="0.6399999856948853" />
                                  </color>
                               </Stop>
                               <Stop offset="1.0">
                                  <color>
-                                    <Color />
+                                    <Color red="0.3163417875766754" green="0.15009745955467224" blue="0.7368420958518982" opacity="0.0" />
                                  </color>
                               </Stop>
                            </stops>
                         </LinearGradient>
                      </stroke>
                   </Line>
-                  <Line endX="100.0" startX="-300.0" GridPane.rowIndex="5">
+                  <Line endX="100.0" startX="-300.0" GridPane.rowIndex="4">
                      <stroke>
                         <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                            <stops>
@@ -215,10 +249,21 @@
                               </Stop>
                            </stops>
                         </LinearGradient>
-                     </stroke></Line>
-                  <MFXTextField floatingText="Width (px)" prefHeight="49.0" prefWidth="82.0" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings:" wrappingWidth="56.240234375" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
-                  <BorderPane prefHeight="32.0" prefWidth="76.0" GridPane.rowIndex="8" />
+                     </stroke>
+                     <effect>
+                        <DropShadow height="19.4" offsetY="10.0" radius="24.365000000000002" spread="0.8" width="80.06">
+                           <color>
+                              <Color red="0.07425276190042496" green="0.06481481343507767" blue="0.10526315867900848" />
+                           </color>
+                        </DropShadow>
+                     </effect></Line>
+                  <MFXTextField floatingText="Width (px)" prefHeight="49.0" prefWidth="82.0" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                  <MFXSlider fx:id="imgquality" accessibleText="Sets compression factor" layoutX="41.0" layoutY="404.0" min="1.0" popupSide="OTHER_SIDE" prefHeight="8.0" prefWidth="148.0" value="50.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+                     <effect>
+                        <Glow />
+                     </effect></MFXSlider>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" wrappingWidth="82.240234375" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+                  <MFXTextField fx:id="fps" floatingText="FPS" text="30" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
                </children>
                <effect>
                   <DropShadow spread="0.01" />
