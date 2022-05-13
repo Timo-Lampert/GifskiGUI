@@ -69,19 +69,19 @@ public class GifskiController {
 
     @FXML
     protected void setOutputFile(ActionEvent action) throws InvalidClassException {
-        File dir = getFilePath(action, true);
+        File dir = getFilePath(true);
         outputFile.setText(dir.getAbsolutePath());
     }
 
 
     /**
      * sets preview images, textbox and width/height according to image
-     * @param action
+     * @param
      * @throws InvalidClassException
      */
     @FXML
-    protected void setInputFile(ActionEvent action) throws InvalidClassException {
-        File dir = getFilePath(action, false);
+    protected void setInputFile() throws InvalidClassException {
+        File dir = getFilePath(false);
         inputFile.setText(dir.getParent());
         Image image = new Image(dir.toURI().toString());
         this.preview.setImage(image);
@@ -109,10 +109,10 @@ public class GifskiController {
     /**
      * Gets Path of selected image
      *
-     * @param onaction
+     *
      */
     @FXML
-    protected File getFilePath(ActionEvent onaction, boolean saveDialog) throws InvalidClassException {
+    protected File getFilePath(boolean saveDialog) throws InvalidClassException {
         FileChooser dchooser = new FileChooser();
 
         dchooser.setTitle("Open Resource File");

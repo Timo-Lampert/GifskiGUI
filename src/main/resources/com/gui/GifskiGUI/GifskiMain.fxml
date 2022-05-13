@@ -172,7 +172,7 @@
                         </DropShadow>
                      </effect>
                   </ImageView>
-                  <ImageView id="preview" fx:id="preview" fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <ImageView id="preview" fx:id="preview" fitHeight="180.0" fitWidth="180.0" onMouseClicked="#setInputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <image>
                         <Image url="@default-placeholder.png" />
                      </image>
