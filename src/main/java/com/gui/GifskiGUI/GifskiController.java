@@ -1,45 +1,43 @@
 package com.gui.GifskiGUI;
-import javafx.event.Event;
-import javafx.scene.layout.GridPane;
-import org.apache.commons.io.FileUtils;
-import io.github.palexdev.materialfx.builders.control.ProgressSpinnerBuilder;
-import io.github.palexdev.materialfx.controls.*;
+
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
+import io.github.palexdev.materialfx.controls.MFXSlider;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.animation.*;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.apache.commons.io.FileUtils;
 
-import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
-import java.nio.channels.FileChannel;
 import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class GifskiController {
 
     @FXML
-    GridPane intropane;
-    @FXML
     public MFXTextField fps;
     public Stage stage;
+    @FXML
+    GridPane intropane;
     String img;
     String saveTo;
     int quality = 50;
@@ -53,38 +51,55 @@ public class GifskiController {
     @FXML
     ImageView prev3;
     @FXML
+    MFXTextField inputFile;
+    @FXML
+    Text success;
+    @FXML
+    MFXTextField outputFile;
+    @FXML
+    MFXTextField repeat;
+    @FXML
+    MFXButton gobutton;
+    @FXML
+    Pane pane2;
+    @FXML
+    Pane pane1;
+    @FXML
+    HBox hbox;
+    @FXML
+    AnchorPane anchpane;
+    String initialuserSetPath;
+    @FXML
     private MFXTextField width;
     @FXML
     private MFXTextField height;
     @FXML
     private MFXProgressSpinner spin;
     @FXML
-    MFXTextField inputFile;
-    @FXML
-    Text success;
-    @FXML
-    MFXTextField outputFile;
+    private AnchorPane spinpane;
 
-    @FXML
-    MFXTextField repeat;
+    public GifskiController() {
 
-    @FXML
-    MFXButton gobutton;
+    }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-
 
     @FXML
     protected void setOutputFile(ActionEvent action) throws InvalidClassException {
         File dir = getFilePath(true);
         outputFile.setText(dir.getAbsolutePath());
+        //Instantiating TranslateTransition class
+        TranslateTransition translate = new TranslateTransition();
+        translate.setByX(-400);
+        translate.setDuration(Duration.millis(1000));
+        translate.setNode(pane1);
     }
-    String initialuserSetPath;
 
     /**
      * sets preview images, textbox and width/height according to image
+     *
      * @param
      * @throws InvalidClassException
      */
@@ -95,60 +110,136 @@ public class GifskiController {
         prev2.setOpacity(0);
         prev3.setOpacity(0);
         initialuserSetPath = dir.getParent();
-            File[] files = new File(dir.getParent()).listFiles((dir1, name) -> name.toLowerCase().endsWith(".png"));
-            if(files ==null){
-                displayAlert("No valid png files detected","only png files are valid.");
-                return;
-            }
-            File[] all = new File(dir.getParent()).listFiles();
+        File[] files = new File(dir.getParent()).listFiles((dir1, name) -> name.toLowerCase().endsWith(".png"));
+        if (files == null) {
+            displayAlert("No valid png files detected", "only png files are valid.");
+            return;
+        }
+        File[] all = new File(dir.getParent()).listFiles();
 
-            if(files.length<all.length){
-                displayAlert("non-png files detected","PNG Images have been moved to a temp. directory", Alert.AlertType.WARNING);
+        if (files.length < all.length) {
+            displayAlert("non-png files detected", "PNG Images have been moved to a temp. directory", Alert.AlertType.WARNING);
 
-            }
-             String newDir;
-             try {
+        }
+        String newDir;
+        try {
 
-                 newDir = moveFilesToTMP(files);
+            newDir = moveFilesToTMP(files);
 
-                 Image image = new Image(new File(newDir).listFiles()[0].toURI().toString());
-                 realimg = image;
-                 this.preview.setImage(image);
-                 this.img = newDir;
-                 inputFile.setText(newDir);
-                 width.setText(""+image.widthProperty().intValue());
-                 height.setText(""+image.heightProperty().intValue());
-             }catch (IOException e){
-                 System.out.println(e);
-             }
-            if(files.length>1) {
-                prev2.setImage(new Image(files[1].toURI().toString()));
-                prev2.setOpacity(0.5);
-            }if(files.length>2) {
-                prev3.setImage(new Image(files[2].toURI().toString()));
-            prev3.setOpacity(0.25);
-            }
+            Image image = new Image(new File(newDir).listFiles()[0].toURI().toString());
+            realimg = image;
+            this.preview.setImage(image);
+            this.img = newDir;
+            inputFile.setText(newDir);
+            width.setText("" + image.widthProperty().intValue());
+            height.setText("" + image.heightProperty().intValue());
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        //set 2 othe rpreview images with a fade in
+        if (files.length > 1) {
+            prev2.setImage(new Image(files[1].toURI().toString()));
+
+            FadeTransition f1 = new FadeTransition();
+            f1.setFromValue(0);
+            f1.setToValue(0.5);
+            f1.setDuration(Duration.millis(500));
+            f1.setNode(prev2);
+            f1.play();
+        }
+        if (files.length > 2) {
+            prev3.setImage(new Image(files[2].toURI().toString()));
+
+            FadeTransition f1 = new FadeTransition();
+            f1.setFromValue(0);
+            f1.setToValue(0.5);
+            f1.setDelay(Duration.millis(250));
+            f1.setDuration(Duration.millis(500));
+            f1.setNode(prev3);
+            f1.play();
+        }
 
 
     }
 
     @FXML
-    protected void introskip(){
-        intropane.setVisible(false);
+    protected void nextSLide() {
+
+        FadeTransition f2 = new FadeTransition();
+        f2.setDuration(Duration.millis(200));
+        f2.setFromValue(1);
+        f2.setToValue(0);
+        f2.setNode(pane1);
+        f2.play();
+        TranslateTransition translate = new TranslateTransition();
+        translate.setByX(-300);
+        translate.setDuration(Duration.millis(500));
+        translate.setNode(pane1);
+        translate.setInterpolator(Interpolator.EASE_BOTH);
+        translate.play();
+
+        translate.setOnFinished(e -> {
+            TranslateTransition translate2 = new TranslateTransition();
+            translate2.setByX(-200);
+            translate2.setDuration(Duration.millis(500));
+            translate2.setNode(pane2);
+            translate2.play();
+            translate2.setInterpolator(Interpolator.EASE_BOTH);
+
+
+            FadeTransition f = new FadeTransition();
+            f.setDuration(Duration.millis(500));
+            f.setFromValue(0);
+            f.setToValue(1);
+            f.setNode(pane2);
+            f.play();
+
+        });
+
+
     }
 
+    @FXML
+    protected void introskip() {
+
+        FadeTransition f = new FadeTransition();
+        f.setDuration(Duration.millis(550));
+        f.setFromValue(intropane.getOpacity());
+        f.setToValue(0);
+        f.setNode(intropane);
+        f.play();
+        TranslateTransition translate = new TranslateTransition();
+        translate.setByX(-400);
+        translate.setDuration(Duration.millis(1000));
+        translate.setNode(intropane);
+
+        translate.setInterpolator(Interpolator.EASE_BOTH);
+        translate.play();
+        translate.setOnFinished(s -> {
+                    intropane.setTranslateX(-500);
+                    intropane.setVisible(false);
+                    intropane.setDisable(true);
+                    anchpane.setVisible(false);
+                    anchpane.setDisable(true);
+                }
+        );
+
+
+    }
 
 
     /**
      * Alert helper, standard alert is error
+     *
      * @param title
      * @param descr
      */
-    void displayAlert(String title, String descr){
-        displayAlert(title,descr, Alert.AlertType.ERROR);
+    void displayAlert(String title, String descr) {
+        displayAlert(title, descr, Alert.AlertType.ERROR);
     }
-    void displayAlert(String title, String descr, Alert.AlertType type){
-        Alert al= new Alert(type);
+
+    void displayAlert(String title, String descr, Alert.AlertType type) {
+        Alert al = new Alert(type);
         al.setTitle(title);
         al.setContentText(descr);
         al.showAndWait();
@@ -156,8 +247,6 @@ public class GifskiController {
 
     /**
      * Gets Path of selected image
-     *
-     *
      */
     @FXML
     protected File getFilePath(boolean saveDialog) throws InvalidClassException {
@@ -168,7 +257,7 @@ public class GifskiController {
         if (saveDialog) {
 
             dchooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Gif Image", "*.gif"));
-            if(initialuserSetPath!=null) {
+            if (initialuserSetPath != null) {
                 dchooser.setInitialDirectory(new File(initialuserSetPath));
             }
             dir = dchooser.showSaveDialog(bpane.getScene().getWindow());
@@ -185,7 +274,7 @@ public class GifskiController {
 
         alert.setTitle("Not an image");
         alert.setContentText("Choose an image");
-        if(saveDialog){
+        if (saveDialog) {
             alert.setTitle("Invalid Savepath");
             alert.setContentText("Choose a filepath");
         }
@@ -196,39 +285,41 @@ public class GifskiController {
 
     /**
      * returns path to tmp directory containing passed files
+     *
      * @param files
      * @return
      * @throws IOException
      */
-    private String moveFilesToTMP(File[] files) throws IOException{
+    private String moveFilesToTMP(File[] files) throws IOException {
         String newDir;
 
-            newDir = Files.createTempDirectory("gifskitmp").toString();
-            System.out.println(newDir);
-            int i=0;
-            assert files != null;
-            for (File file: files
-            ) {
+        newDir = Files.createTempDirectory("gifskitmp").toString();
+        System.out.println(newDir);
+        int i = 0;
+        assert files != null;
+        for (File file : files
+        ) {
 
-                FileUtils.copyFile(file,new File(newDir+"/file"+i+".png"));
-                i++;
-            }
+            FileUtils.copyFile(file, new File(newDir + "/file" + i + ".png"));
+            i++;
+        }
 
         return newDir;
     }
 
 
     @FXML
-    protected void intValidator(Event action){
-        TextField val = ((TextField)action.getSource());
+    protected void intValidator(Event action) {
+        TextField val = ((TextField) action.getSource());
 
-        if(isInteger(val.getText())||val.getText().equals("")){
+        if (isInteger(val.getText()) || val.getText().equals("")) {
             return;
         }
-        val.setText(val.getText().substring(0,val.getText().length()-1));
-        displayAlert("Not numeric value","Select a number for this Textfield");
+        val.setText(val.getText().substring(0, val.getText().length() - 1));
+        displayAlert("Not numeric value", "Select a number for this Textfield");
 
     }
+
     /**
      * Takes an Object and sets the scene to ID of object
      *
@@ -257,12 +348,11 @@ public class GifskiController {
     }
 
 
-
     public boolean isInteger(String str) {
         return str.matches("\\d+");
     }
+
     /**
-     *
      * @param input
      * @param output
      * @param fps
@@ -290,26 +380,40 @@ public class GifskiController {
         String qual = " --quality " + quality;
         String rep = " --repeat " + repeat;
 
-        return path + in + framerate + sizeX + sizeY + qual +rep+ out;
+        return path + in + framerate + sizeX + sizeY + qual + rep + out;
     }
 
     /**
      * executes gifski cmd commands
+     *
      * @throws IOException
      */
     //TODO: Make file path variable
-
     public void convert() throws IOException {
         setQuality();
-        if(repeat.getText().equals("")){
+
+        if(outputFile.getText().equals("")){
+            displayAlert("Invalid path","Invalid Output path");
+            return;
+        }
+
+        if(!(new File(inputFile.getText()).exists())){
+            displayAlert("Invalid path","Invalid Output path");
+            return;
+        }
+
+        if (repeat.getText().equals("")) {
 
             repeat.setText(repeat.getPromptText());
         }
-        if(fps.getText().equals("")){
+        if (fps.getText().equals("")) {
 
             fps.setText(fps.getPromptText());
         }
-        spin.setOpacity(0);
+        success.setText("Processing Image....");
+        success.setFill(Color.YELLOW);
+        success.setOpacity(1);
+        spin.setOpacity(1);
         spin.setProgress(0);
         System.out.println(quality);
         String gifskiCall = constructCMD(inputFile.getText(),
@@ -320,43 +424,86 @@ public class GifskiController {
                 this.quality,
                 Integer.parseInt(repeat.getText()));
 
-        ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", gifskiCall);
-        builder.redirectErrorStream(true);
-        Process p = builder.start();
-        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line;
-        while (true) {
-            line = r.readLine();
-            if (line == null) {
-                break;
-            }
-            String[] splittext = line.split(" ");
-            if(splittext.length>2 ) {
-                try {
-                    double prog;
-                    prog = (Integer.parseInt(splittext[1]) / Integer.parseInt(splittext[3]));
-                    spin.setProgress(prog);
-                }catch(NumberFormatException e){
+        try {
+            Task task = new Task<Void>() {
+                @Override
+                public Void call() {
 
+                    try {
+                        runtask(gifskiCall);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
                 }
-            }
-            System.out.println(line);
-            if(line.contains("gifski created")){
-                success.setFill(Color.GREEN);
-                success.setOpacity(1);
-                success.setText("Gif created successfully");
-                Desktop.getDesktop().open(new File(outputFile.getText()));
+            };
+            task.setOnSucceeded(e -> spinpane.setVisible(false));
+            new Thread(task).start();
 
-                //TODO:convert to alert
-            }else if(line.contains("error")){
-                String errparse = line.split("error")[1].trim();
-                success.setFill(Color.RED);
-                success.setOpacity(1);
-                success.setText("Error"+errparse);
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
 
+
+    }
+
+    public void runtask(String call) throws Exception {
+
+
+        ProcessBuilder builder = new ProcessBuilder(
+                "cmd.exe", "/c", call);
+        builder.redirectErrorStream(true);
+        Process p = builder.start();
+
+        BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        spinpane.setVisible(true);
+
+        while (true) {
+            try {
+                String line = r.readLine();
+                if (line == null) {
+                    break;
+                }
+                String[] splittext = line.split(" ");
+                if (splittext.length > 2) {
+
+                    try {
+                        double prog;
+                        prog = ((double) Integer.parseInt(splittext[1]) / (double) Integer.parseInt(splittext[3]));
+                        Timeline timeline = new Timeline();
+
+                        KeyValue keyValue = new KeyValue(spin.progressProperty(), prog);
+                        KeyFrame keyFrame = new KeyFrame(new Duration(500), keyValue);
+
+                        timeline.getKeyFrames().add(keyFrame);
+
+                        timeline.play();
+                        spin.setProgress(prog);
+
+                    } catch (NumberFormatException a) {
+
+                    }
+                }
+                System.out.println(line);
+                if (line.contains("gifski created")) {
+                    success.setFill(Color.GREEN);
+                    success.setOpacity(1);
+                    success.setText("Gif created successfully");
+                    Desktop.getDesktop().open(new File(outputFile.getText()));
+
+                    //TODO:convert to alert
+                } else if (line.contains("error")) {
+                    String errparse = line.split("error")[1].trim();
+                    success.setFill(Color.RED);
+                    success.setOpacity(1);
+                    success.setText("Error" + errparse);
+                    spin.setProgress(0);
+                }
+            } catch (Exception d) {
+                d.printStackTrace();
+            }
+        }
 
 
     }

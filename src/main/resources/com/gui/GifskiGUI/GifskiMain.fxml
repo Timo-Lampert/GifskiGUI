@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bpane" minHeight="500.0" minWidth="500.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #181818;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.GifskiGUI.GifskiController">
+<BorderPane fx:id="bpane" minHeight="500.0" minWidth="500.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #181818;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.GifskiGUI.GifskiController">
     <padding>
         <Insets bottom="0" left="0" right="0" top="0" />
     </padding>
@@ -144,12 +144,12 @@
                               <Insets />
                            </GridPane.margin>
                         </Text>
-                        <MFXProgressSpinner fx:id="spin" opacity="0.0" progress="0.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <MFXProgressSpinner opacity="0.0" progress="0.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                            <effect>
                               <Glow level="1.0" />
                            </effect>
                         </MFXProgressSpinner>
-                        <MFXTextField fx:id="repeat" floatingText="Repeat" promptText="0" textLimit="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <MFXTextField fx:id="repeat" floatingText="Repeat" onKeyReleased="#intValidator" promptText="0" textLimit="90" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="77.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <ImageView id="preview" fx:id="prev3" fitHeight="93.0" fitWidth="83.0" layoutX="135.0" layoutY="23.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <image>
@@ -191,12 +191,12 @@
                            </effect>
                         </ImageView>
                         <MFXTextField id="dirinput" fx:id="inputFile" floatMode="BORDER" floatingText="Input file" onAction="#setInputFile" prefHeight="38.0" prefWidth="163.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                        <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#setInputFile" opacity="0.0" prefHeight="33.0" prefWidth="71.0" rippleColor="#ff14e8" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
                         <ImageView fitHeight="42.0" fitWidth="62.0" mouseTransparent="true" onMouseClicked="#setInputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7">
                            <image>
                               <Image url="@foldericon.png" />
                            </image>
                         </ImageView>
-                        <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#setInputFile" opacity="0.0" prefHeight="33.0" prefWidth="71.0" rippleColor="#ff14e8" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
                         <HBox prefHeight="66.0" prefWidth="218.0" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         <MFXTextField layoutX="209.0" layoutY="86.0" prefHeight="49.0" prefWidth="72.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                         <MFXTextField fx:id="outputFile" floatMode="BORDER" floatingText="Output Gif" graphicTextGap="20.0" onAction="#setOutputFile" prefHeight="38.0" prefWidth="165.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
@@ -301,7 +301,7 @@
                         <DropShadow spread="0.01" />
                      </effect>
                   </GridPane>
-                  <GridPane fx:id="intropane" style="-fx-background-color: rgba(1,1,1,0.5);" visible="false">
+                  <GridPane fx:id="intropane" style="-fx-background-color: rgba(1,1,1,0.5);">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="5.0" prefWidth="32.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="224.0" />
@@ -314,36 +314,96 @@
                       <RowConstraints maxHeight="93.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #111111;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <AnchorPane fx:id="anchpane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right, rgba(2,0,36,0.8281512434075192) 0%, rgba(1,128,83,0.8533613274411327) 42%, rgba(0,68,129,0.7497198708584997) 100%);" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                              <Pane prefHeight="190.0" prefWidth="198.0">
+                              <Pane fx:id="pane1" layoutX="50.0" layoutY="24.0" prefHeight="432.0" prefWidth="334.0" style="-fx-background-color: #111111; -fx-border-style: solid; -fx-border-image-width: 3; -fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 3;" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="24.0">
                                  <children>
-                                    <Text fill="WHITE" layoutX="12.0" layoutY="-16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanks for using Gifski GUI!" textAlignment="CENTER" wrappingWidth="59.0078125" x="20.0" y="100.0" />
-                                 </children></Pane>
-                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                    <Text fill="WHITE" layoutX="37.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanks For using the Gifski GUI!" textAlignment="CENTER" wrappingWidth="130.0078125" x="20.0" y="100.0" />
+                                 </children>
+                                 <effect>
+                                    <DropShadow height="100.25" radius="57.98" spread="0.23" width="133.67">
+                                       <color>
+                                          <Color red="0.10112085938453674" green="0.044164229184389114" blue="0.32894736528396606" />
+                                       </color>
+                                       <input>
+                                          <Reflection fraction="0.15" topOffset="3.0" topOpacity="0.09" />
+                                       </input>
+                                    </DropShadow>
+                                 </effect>
+                              </Pane>
+                              <Pane fx:id="pane2" opacity="0.0" prefHeight="335.0" prefWidth="235.0" style="-fx-background-color: #111111; -fx-border-style: solid; -fx-border-image-width: 3; -fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 3;" translateX="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="20.0">
                                  <children>
-                                    <Text fill="WHITE" layoutX="6.0" layoutY="-14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To get started, Simply Choose a Image in a folder with PNG Images" textAlignment="CENTER" wrappingWidth="59.0078125" x="20.0" y="100.0" />
-                                 </children></Pane>
-                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                    <Text fill="WHITE" layoutX="42.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an image from a folder of PNG images" textAlignment="CENTER" wrappingWidth="132.0078125" x="20.0" y="100.0" />
+                                 </children>
+                                 <effect>
+                                    <DropShadow height="100.25" radius="57.98" spread="0.23" width="133.67">
+                                       <color>
+                                          <Color red="0.10112085938453674" green="0.044164229184389114" blue="0.32894736528396606" />
+                                       </color>
+                                       <input>
+                                          <Reflection fraction="0.15" topOffset="3.0" topOpacity="0.09" />
+                                       </input>
+                                    </DropShadow>
+                                 </effect>
+                              </Pane>
+                              <MFXButton layoutY="392.0" mnemonicParsing="false" onAction="#introskip" prefHeight="40.0" prefWidth="334.0" style="-fx-background-color: #ffffff; -fx-background-radius: 0;" text="Get started!" textAlignment="CENTER" textFill="#411b86" textOverrun="LEADING_WORD_ELLIPSIS" wrapText="true">
+                                 <effect>
+                                    <DropShadow height="16.55" radius="5.1825" width="6.18">
+                                       <color>
+                                          <Color red="1.0" green="1.0" blue="1.0" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </MFXButton>
+                              <Pane layoutX="299.0" onMouseClicked="#nextSLide" prefHeight="388.0" prefWidth="35.0" style="-fx-background-color: rgba(1,1,1,0.2);" AnchorPane.leftAnchor="299.0">
                                  <children>
-                                    <Text fill="WHITE" layoutX="6.0" layoutY="-15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hit GO and get your GIF" textAlignment="CENTER" wrappingWidth="59.0078125" x="20.0" y="100.0" />
-                                    <MFXButton layoutX="13.0" layoutY="341.0" mnemonicParsing="false" onAction="#introskip" prefHeight="77.0" prefWidth="86.0" style="-fx-background-color: #552288; -fx-background-radius: 50;" text="Get started" textAlignment="CENTER" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS" wrapText="true">
+                                    <ImageView blendMode="ADD" fitHeight="87.0" fitWidth="35.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@Arrow-Right-icon.png" />
+                                       </image>
                                        <effect>
-                                          <Bloom />
+                                          <DropShadow>
+                                             <color>
+                                                <Color red="1.0" green="1.0" blue="1.0" />
+                                             </color>
+                                          </DropShadow>
                                        </effect>
-                                    </MFXButton>
+                                    </ImageView>
                                  </children></Pane>
                            </children>
                            <effect>
-                              <DropShadow height="104.02" radius="40.3925" width="59.55">
+                              <DropShadow height="169.26" radius="75.23249999999999" width="133.67">
                                  <color>
-                                    <Color red="0.2065499722957611" green="0.10660000145435333" blue="0.25999999046325684" />
+                                    <Color red="0.3815789520740509" green="0.3815789520740509" blue="0.3815789520740509" />
                                  </color>
                               </DropShadow>
                            </effect>
-                        </HBox>
+                        </AnchorPane>
                      </children>
                   </GridPane>
+                  <AnchorPane fx:id="spinpane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgba(1,1,1,0.9);" visible="false">
+                     <effect>
+                        <InnerShadow choke="0.38" height="129.59" radius="52.712500000000006" width="83.26">
+                           <color>
+                              <Color red="0.33613547682762146" green="0.33613547682762146" blue="0.40789473056793213" />
+                           </color>
+                           <input>
+                              <Glow />
+                           </input>
+                        </InnerShadow>
+                     </effect>
+                     <children>
+                        <MFXProgressSpinner fx:id="spin" layoutX="173.0" layoutY="225.0" prefWidth="57.0" progress="0.0" radius="40.0" scaleX="5.0" scaleY="5.0" scaleZ="0.0" startingAngle="90.0" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="225.0">
+                           <effect>
+                              <Glow />
+                           </effect></MFXProgressSpinner>
+                        <Text fill="WHITE" layoutX="111.0" layoutY="67.0" opacity="0.68" strokeType="OUTSIDE" strokeWidth="0.0" text="Hold on..." textAlignment="CENTER">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
                </children>
             </StackPane>
          </center></BorderPane>

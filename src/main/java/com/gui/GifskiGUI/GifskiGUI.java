@@ -22,7 +22,6 @@ public class GifskiGUI extends Application {
         stage.getIcons().add(new Image("file:src/main/resources/com/gui/GifskiGUI/gifski.png"));
         stage.setScene(scene);
 
-
         stage.show();
     }
 
