@@ -1,5 +1,7 @@
 package com.gui.GifskiGUI;
-
+import javafx.event.Event;
+import javafx.scene.layout.GridPane;
+import org.apache.commons.io.FileUtils;
 import io.github.palexdev.materialfx.builders.control.ProgressSpinnerBuilder;
 import io.github.palexdev.materialfx.controls.*;
 import javafx.event.ActionEvent;
@@ -24,10 +26,17 @@ import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class GifskiController {
 
+    @FXML
+    GridPane intropane;
     @FXML
     public MFXTextField fps;
     public Stage stage;
@@ -72,7 +81,7 @@ public class GifskiController {
         File dir = getFilePath(true);
         outputFile.setText(dir.getAbsolutePath());
     }
-
+    String initialuserSetPath;
 
     /**
      * sets preview images, textbox and width/height according to image
@@ -81,20 +90,37 @@ public class GifskiController {
      */
     @FXML
     protected void setInputFile() throws InvalidClassException {
+
         File dir = getFilePath(false);
-        inputFile.setText(dir.getParent());
-        Image image = new Image(dir.toURI().toString());
-        this.preview.setImage(image);
         prev2.setOpacity(0);
         prev3.setOpacity(0);
-        realimg = image;
-        this.img = dir.getParent();
-        width.setText(""+realimg.widthProperty().intValue());
-        height.setText(""+realimg.heightProperty().intValue());
+        initialuserSetPath = dir.getParent();
             File[] files = new File(dir.getParent()).listFiles((dir1, name) -> name.toLowerCase().endsWith(".png"));
-            if(files==null){
+            if(files ==null){
+                displayAlert("No valid png files detected","only png files are valid.");
                 return;
             }
+            File[] all = new File(dir.getParent()).listFiles();
+
+            if(files.length<all.length){
+                displayAlert("non-png files detected","PNG Images have been moved to a temp. directory", Alert.AlertType.WARNING);
+
+            }
+             String newDir;
+             try {
+
+                 newDir = moveFilesToTMP(files);
+
+                 Image image = new Image(new File(newDir).listFiles()[0].toURI().toString());
+                 realimg = image;
+                 this.preview.setImage(image);
+                 this.img = newDir;
+                 inputFile.setText(newDir);
+                 width.setText(""+image.widthProperty().intValue());
+                 height.setText(""+image.heightProperty().intValue());
+             }catch (IOException e){
+                 System.out.println(e);
+             }
             if(files.length>1) {
                 prev2.setImage(new Image(files[1].toURI().toString()));
                 prev2.setOpacity(0.5);
@@ -104,6 +130,28 @@ public class GifskiController {
             }
 
 
+    }
+
+    @FXML
+    protected void introskip(){
+        intropane.setVisible(false);
+    }
+
+
+
+    /**
+     * Alert helper, standard alert is error
+     * @param title
+     * @param descr
+     */
+    void displayAlert(String title, String descr){
+        displayAlert(title,descr, Alert.AlertType.ERROR);
+    }
+    void displayAlert(String title, String descr, Alert.AlertType type){
+        Alert al= new Alert(type);
+        al.setTitle(title);
+        al.setContentText(descr);
+        al.showAndWait();
     }
 
     /**
@@ -120,7 +168,9 @@ public class GifskiController {
         if (saveDialog) {
 
             dchooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Gif Image", "*.gif"));
-            dchooser.setInitialDirectory(new File(inputFile.getText()));
+            if(initialuserSetPath!=null) {
+                dchooser.setInitialDirectory(new File(initialuserSetPath));
+            }
             dir = dchooser.showSaveDialog(bpane.getScene().getWindow());
         } else {
             dir = dchooser.showOpenDialog((Stage) bpane.getScene().getWindow());
@@ -141,6 +191,42 @@ public class GifskiController {
         }
         alert.showAndWait();
         throw new InvalidClassException("Bad FileType");
+
+    }
+
+    /**
+     * returns path to tmp directory containing passed files
+     * @param files
+     * @return
+     * @throws IOException
+     */
+    private String moveFilesToTMP(File[] files) throws IOException{
+        String newDir;
+
+            newDir = Files.createTempDirectory("gifskitmp").toString();
+            System.out.println(newDir);
+            int i=0;
+            assert files != null;
+            for (File file: files
+            ) {
+
+                FileUtils.copyFile(file,new File(newDir+"/file"+i+".png"));
+                i++;
+            }
+
+        return newDir;
+    }
+
+
+    @FXML
+    protected void intValidator(Event action){
+        TextField val = ((TextField)action.getSource());
+
+        if(isInteger(val.getText())||val.getText().equals("")){
+            return;
+        }
+        val.setText(val.getText().substring(0,val.getText().length()-1));
+        displayAlert("Not numeric value","Select a number for this Textfield");
 
     }
     /**
@@ -170,6 +256,11 @@ public class GifskiController {
         }
     }
 
+
+
+    public boolean isInteger(String str) {
+        return str.matches("\\d+");
+    }
     /**
      *
      * @param input

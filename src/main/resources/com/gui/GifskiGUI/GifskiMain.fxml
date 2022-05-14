@@ -110,191 +110,242 @@
    </left>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(from 25px 25px to 100px 200px, #331266, rgba(1,1,1,0));" BorderPane.alignment="CENTER">
-         <top>
-            <GridPane alignment="CENTER_LEFT" prefHeight="500.0" prefWidth="372.0" style="-fx-background-image: url(playbutton.png);" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="117.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="0.0" prefWidth="97.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="116.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="0.0" prefWidth="62.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="270.0" minWidth="0.0" prefWidth="12.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-
-                  <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="89.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="22.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="68.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="45.0" />
-                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="10.0" />
-                  <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="50.0" />
-                  <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="93.0" />
-                  <RowConstraints maxHeight="188.0" minHeight="0.0" prefHeight="57.0" />
-                  <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="37.0" />
-              </rowConstraints>
+         <center>
+            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="success" fill="#1bff49" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gif Created Successfully" wrappingWidth="155.005859375" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-                     <effect>
-                        <Bloom threshold="0.42" />
-                     </effect>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </Text>
-                  <MFXProgressSpinner fx:id="spin" opacity="0.0" progress="0.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect></MFXProgressSpinner>
-                  <MFXTextField fx:id="repeat" floatingText="Repeat" promptText="0" textLimit="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="77.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                  <ImageView id="preview" fx:id="prev3" fitHeight="93.0" fitWidth="83.0" layoutX="135.0" layoutY="23.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                     <image>
-                        <Image url="@default-placeholder.png" />
-                     </image>
-                     <effect>
-                        <DropShadow spread="0.28">
-                           <color>
-                              <Color red="0.031676411628723145" green="0.057545483112335205" blue="0.34210526943206787" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </ImageView>
-                  <ImageView id="preview" fx:id="prev2" fitHeight="144.0" fitWidth="101.0" layoutX="10.0" layoutY="-80.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                     <image>
-                        <Image url="@default-placeholder.png" />
-                     </image>
-                     <effect>
-                        <DropShadow spread="0.28">
-                           <color>
-                              <Color red="0.031676411628723145" green="0.057545483112335205" blue="0.34210526943206787" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </ImageView>
-                  <ImageView id="preview" fx:id="preview" fitHeight="180.0" fitWidth="180.0" onMouseClicked="#setInputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                     <image>
-                        <Image url="@default-placeholder.png" />
-                     </image>
-                     <effect>
-                        <DropShadow height="0.0" radius="38.85" spread="0.55" width="157.4">
-                           <color>
-                              <Color red="0.8447999954223633" green="0.8477333188056946" blue="0.8799999952316284" opacity="0.134782612323761" />
-                           </color>
-                           <input>
-                              <DropShadow />
-                           </input>
-                        </DropShadow>
-                     </effect>
-                  </ImageView>
-                  <MFXTextField id="dirinput" fx:id="inputFile" floatMode="BORDER" floatingText="Input file" onAction="#setInputFile" prefHeight="38.0" prefWidth="163.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                  <ImageView fitHeight="42.0" fitWidth="62.0" mouseTransparent="true" onMouseClicked="#setInputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7">
-                     <image>
-                        <Image url="@foldericon.png" />
-                     </image>
-                  </ImageView>
-                  <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#setInputFile" opacity="0.0" prefHeight="33.0" prefWidth="71.0" rippleColor="#ff14e8" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-                  <HBox prefHeight="66.0" prefWidth="218.0" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <MFXTextField layoutX="209.0" layoutY="86.0" prefHeight="49.0" prefWidth="72.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                  <MFXTextField fx:id="outputFile" floatMode="BORDER" floatingText="Output Gif" graphicTextGap="20.0" onAction="#setOutputFile" prefHeight="38.0" prefWidth="165.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
-                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                     </cursor></MFXTextField>
-                  <ImageView fitHeight="43.0" fitWidth="62.0" mouseTransparent="true" onMouseClicked="#setOutputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8">
-                     <image>
-                        <Image url="@foldericon.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </ImageView>
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <MFXButton blendMode="COLOR_BURN" mnemonicParsing="false" onAction="#setOutputFile" opacity="0.0" prefHeight="33.0" prefWidth="55.0" rippleAnimateShadow="true" rippleColor="#f200ff" text="Button" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
-                  <MFXTextField id="height" fx:id="height" floatingText="Height (px)" prefHeight="26.0" prefWidth="85.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <MFXButton fx:id="gobutton" alignment="CENTER" mnemonicParsing="false" onAction="#convert" prefHeight="37.0" prefWidth="384.0" rippleColor="#0a0a0a" style="-fx-background-color: white; -fx-background-radius: 500; -fx-background-color: linear-gradient(to right, #181818, #2b2741, #382e64, #473488, #5a37ac, #5a37ac, #5a37ac, #5a37ac, #473488, #382e64, #2b2741, #181818);" text="Go" textFill="WHITE" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
-                     <graphic>
-                        <ImageView fitHeight="17.0" fitWidth="28.0" preserveRatio="true">
+                  <GridPane alignment="CENTER_LEFT" prefHeight="500.0" prefWidth="372.0" style="-fx-background-image: url(playbutton.png);">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="10.0" prefWidth="117.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="0.0" prefWidth="97.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="116.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="0.0" prefWidth="62.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="270.0" minWidth="0.0" prefWidth="12.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+
+                        <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="89.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="22.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="303.0" minHeight="0.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="45.0" />
+                        <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="10.0" />
+                        <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="50.0" />
+                        <RowConstraints maxHeight="163.0" minHeight="0.0" prefHeight="93.0" />
+                        <RowConstraints maxHeight="188.0" minHeight="0.0" prefHeight="57.0" />
+                        <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="37.0" />
+                    </rowConstraints>
+                     <children>
+                        <Text fx:id="success" fill="#1bff49" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gif Created Successfully" wrappingWidth="155.005859375" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+                           <effect>
+                              <Bloom threshold="0.42" />
+                           </effect>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Text>
+                        <MFXProgressSpinner fx:id="spin" opacity="0.0" progress="0.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </MFXProgressSpinner>
+                        <MFXTextField fx:id="repeat" floatingText="Repeat" promptText="0" textLimit="0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="77.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <ImageView id="preview" fx:id="prev3" fitHeight="93.0" fitWidth="83.0" layoutX="135.0" layoutY="23.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <image>
-                              <Image url="@playbutton.png" />
+                              <Image url="@default-placeholder.png" />
+                           </image>
+                           <effect>
+                              <DropShadow spread="0.28">
+                                 <color>
+                                    <Color red="0.031676411628723145" green="0.057545483112335205" blue="0.34210526943206787" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </ImageView>
+                        <ImageView id="preview" fx:id="prev2" fitHeight="144.0" fitWidth="101.0" layoutX="10.0" layoutY="-80.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@default-placeholder.png" />
+                           </image>
+                           <effect>
+                              <DropShadow spread="0.28">
+                                 <color>
+                                    <Color red="0.031676411628723145" green="0.057545483112335205" blue="0.34210526943206787" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </ImageView>
+                        <ImageView id="preview" fx:id="preview" fitHeight="180.0" fitWidth="180.0" onMouseClicked="#setInputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                           <image>
+                              <Image url="@default-placeholder.png" />
+                           </image>
+                           <effect>
+                              <DropShadow height="0.0" radius="38.85" spread="0.55" width="157.4">
+                                 <color>
+                                    <Color red="0.8447999954223633" green="0.8477333188056946" blue="0.8799999952316284" opacity="0.134782612323761" />
+                                 </color>
+                                 <input>
+                                    <DropShadow />
+                                 </input>
+                              </DropShadow>
+                           </effect>
+                        </ImageView>
+                        <MFXTextField id="dirinput" fx:id="inputFile" floatMode="BORDER" floatingText="Input file" onAction="#setInputFile" prefHeight="38.0" prefWidth="163.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                        <ImageView fitHeight="42.0" fitWidth="62.0" mouseTransparent="true" onMouseClicked="#setInputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+                           <image>
+                              <Image url="@foldericon.png" />
                            </image>
                         </ImageView>
-                     </graphic>
+                        <MFXButton blendMode="SOFT_LIGHT" mnemonicParsing="false" onAction="#setInputFile" opacity="0.0" prefHeight="33.0" prefWidth="71.0" rippleColor="#ff14e8" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                        <HBox prefHeight="66.0" prefWidth="218.0" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <MFXTextField layoutX="209.0" layoutY="86.0" prefHeight="49.0" prefWidth="72.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <MFXTextField fx:id="outputFile" floatMode="BORDER" floatingText="Output Gif" graphicTextGap="20.0" onAction="#setOutputFile" prefHeight="38.0" prefWidth="165.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </MFXTextField>
+                        <ImageView fitHeight="43.0" fitWidth="62.0" mouseTransparent="true" onMouseClicked="#setOutputFile" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                           <image>
+                              <Image url="@foldericon.png" />
+                           </image>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </ImageView>
+                        <Pane prefHeight="200.0" prefWidth="200.0" />
+                        <MFXButton blendMode="COLOR_BURN" mnemonicParsing="false" onAction="#setOutputFile" opacity="0.0" prefHeight="33.0" prefWidth="55.0" rippleAnimateShadow="true" rippleColor="#f200ff" text="Button" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+                        <MFXTextField id="height" fx:id="height" floatingText="Height (px)" onAction="#intValidator" onKeyReleased="#intValidator" prefHeight="26.0" prefWidth="85.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <MFXButton fx:id="gobutton" alignment="CENTER" mnemonicParsing="false" onAction="#convert" prefHeight="37.0" prefWidth="384.0" rippleColor="#0a0a0a" style="-fx-background-color: white; -fx-background-radius: 500; -fx-background-color: linear-gradient(to right, #181818, #2b2741, #382e64, #473488, #5a37ac, #5a37ac, #5a37ac, #5a37ac, #473488, #382e64, #2b2741, #181818);" text="Go" textFill="WHITE" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="28.0" preserveRatio="true">
+                                 <image>
+                                    <Image url="@playbutton.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <effect>
+                              <InnerShadow choke="0.66" height="0.0" radius="12.84" width="53.36">
+                                 <color>
+                                    <Color red="0.0941176488995552" green="0.0941176488995552" blue="0.0941176488995552" />
+                                 </color>
+                              </InnerShadow>
+                           </effect>
+                        </MFXButton>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quality" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
+                        <Line endX="-500.0" endY="-250.0" startX="-500.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                           <effect>
+                              <Glow level="0.77" />
+                           </effect>
+                           <stroke>
+                              <LinearGradient endX="0.014285714285714235" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.1616750955581665" green="0.1599999964237213" blue="0.6399999856948853" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.3163417875766754" green="0.15009745955467224" blue="0.7368420958518982" opacity="0.0" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                        </Line>
+                        <Line endX="100.0" startX="-300.0" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                           <stroke>
+                              <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.09224999696016312" green="0.08699999749660492" blue="0.15000000596046448" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.007662835249042145">
+                                       <color>
+                                          <Color red="0.09224999696016312" green="0.08699999749660492" blue="0.15000000596046448" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.5249042145593869">
+                                       <color>
+                                          <Color red="0.3499999940395355" blue="1.0" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.09802631288766861" green="0.09137427061796188" blue="0.15789473056793213" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </stroke>
+                           <effect>
+                              <DropShadow height="19.4" offsetY="10.0" radius="24.365000000000002" spread="0.8" width="80.06">
+                                 <color>
+                                    <Color red="0.07425276190042496" green="0.06481481343507767" blue="0.10526315867900848" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Line>
+                        <MFXTextField id="width" fx:id="width" accessibleHelp="ef" accessibleText="gdmvd" floatingText="Width (px)" onAction="#intValidator" onKeyReleased="#intValidator" prefHeight="49.0" prefWidth="82.0" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                        <MFXSlider fx:id="imgquality" accessibleText="Sets compression factor" layoutX="41.0" layoutY="404.0" min="1.0" popupSide="OTHER_SIDE" prefHeight="8.0" prefWidth="148.0" value="50.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                           <effect>
+                              <Glow />
+                           </effect>
+                        </MFXSlider>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="82.240234375" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
+                        <MFXTextField fx:id="fps" floatingText="FPS" onAction="#intValidator" onKeyReleased="#intValidator" promptText="30" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                     </children>
                      <effect>
-                        <InnerShadow choke="0.66" height="0.0" radius="12.84" width="53.36">
-                           <color>
-                              <Color red="0.0941176488995552" green="0.0941176488995552" blue="0.0941176488995552" />
-                           </color>
-                        </InnerShadow>
+                        <DropShadow spread="0.01" />
                      </effect>
-                  </MFXButton>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quality" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-                  <Line endX="-500.0" endY="-250.0" startX="-500.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
-                     <effect>
-                        <Glow level="0.77" />
-                     </effect>
-                     <stroke>
-                        <LinearGradient endX="0.014285714285714235" endY="1.0">
-                           <stops>
-                              <Stop>
+                  </GridPane>
+                  <GridPane fx:id="intropane" style="-fx-background-color: rgba(1,1,1,0.5);" visible="false">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="5.0" prefWidth="32.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="224.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="118.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="37.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="162.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="432.0" minHeight="10.0" prefHeight="432.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="93.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #111111;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                           <children>
+                              <Pane prefHeight="190.0" prefWidth="198.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="12.0" layoutY="-16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanks for using Gifski GUI!" textAlignment="CENTER" wrappingWidth="59.0078125" x="20.0" y="100.0" />
+                                 </children></Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="6.0" layoutY="-14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To get started, Simply Choose a Image in a folder with PNG Images" textAlignment="CENTER" wrappingWidth="59.0078125" x="20.0" y="100.0" />
+                                 </children></Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Text fill="WHITE" layoutX="6.0" layoutY="-15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hit GO and get your GIF" textAlignment="CENTER" wrappingWidth="59.0078125" x="20.0" y="100.0" />
+                                    <MFXButton layoutX="13.0" layoutY="341.0" mnemonicParsing="false" onAction="#introskip" prefHeight="77.0" prefWidth="86.0" style="-fx-background-color: #552288; -fx-background-radius: 50;" text="Get started" textAlignment="CENTER" textFill="WHITE" textOverrun="LEADING_WORD_ELLIPSIS" wrapText="true">
+                                       <effect>
+                                          <Bloom />
+                                       </effect>
+                                    </MFXButton>
+                                 </children></Pane>
+                           </children>
+                           <effect>
+                              <DropShadow height="104.02" radius="40.3925" width="59.55">
                                  <color>
-                                    <Color red="0.1616750955581665" green="0.1599999964237213" blue="0.6399999856948853" />
+                                    <Color red="0.2065499722957611" green="0.10660000145435333" blue="0.25999999046325684" />
                                  </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.3163417875766754" green="0.15009745955467224" blue="0.7368420958518982" opacity="0.0" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </stroke>
-                  </Line>
-                  <Line endX="100.0" startX="-300.0" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-                     <stroke>
-                        <LinearGradient endX="1.0" endY="1.0" startY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.09224999696016312" green="0.08699999749660492" blue="0.15000000596046448" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.007662835249042145">
-                                 <color>
-                                    <Color red="0.09224999696016312" green="0.08699999749660492" blue="0.15000000596046448" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="0.5249042145593869">
-                                 <color>
-                                    <Color red="0.3499999940395355" blue="1.0" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="0.09802631288766861" green="0.09137427061796188" blue="0.15789473056793213" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </stroke>
-                     <effect>
-                        <DropShadow height="19.4" offsetY="10.0" radius="24.365000000000002" spread="0.8" width="80.06">
-                           <color>
-                              <Color red="0.07425276190042496" green="0.06481481343507767" blue="0.10526315867900848" />
-                           </color>
-                        </DropShadow>
-                     </effect></Line>
-                  <MFXTextField id="width" fx:id="width" accessibleHelp="ef" accessibleText="gdmvd" floatingText="Width (px)" prefHeight="49.0" prefWidth="82.0" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                  <MFXSlider fx:id="imgquality" accessibleText="Sets compression factor" layoutX="41.0" layoutY="404.0" min="1.0" popupSide="OTHER_SIDE" prefHeight="8.0" prefWidth="148.0" value="50.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
-                     <effect>
-                        <Glow />
-                     </effect></MFXSlider>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="82.240234375" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM" />
-                  <MFXTextField fx:id="fps" floatingText="FPS" promptText="30" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                              </DropShadow>
+                           </effect>
+                        </HBox>
+                     </children>
+                  </GridPane>
                </children>
-               <effect>
-                  <DropShadow spread="0.01" />
-               </effect>
-            </GridPane>
-         </top></BorderPane>
+            </StackPane>
+         </center></BorderPane>
    </center>
 </BorderPane>
