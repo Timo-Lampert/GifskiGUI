@@ -362,7 +362,7 @@
                                     </DropShadow>
                                  </effect>
                               </MFXButton>
-                              <Pane layoutX="299.0" layoutY="6.0" onMouseClicked="#nextSLide" prefHeight="382.0" prefWidth="35.0" style="-fx-background-color: rgba(1,1,1,0.4); -fx-background-radius: 10;" AnchorPane.leftAnchor="299.0">
+                              <Pane layoutX="291.0" onMouseClicked="#nextSLide" prefHeight="388.0" prefWidth="43.0" style="-fx-background-color: rgba(1,1,1,0.4); -fx-background-radius: 22;" AnchorPane.leftAnchor="291.0">
                                  <children>
                                     <ImageView blendMode="ADD" fitHeight="87.0" fitWidth="35.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
