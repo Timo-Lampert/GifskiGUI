@@ -400,6 +400,11 @@
                         </InnerShadow>
                      </effect>
                      <children>
+                        <ImageView blendMode="ADD" fitHeight="232.0" fitWidth="390.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@grid.gif" />
+                           </image>
+                        </ImageView>
                         <MFXProgressSpinner fx:id="spin" layoutX="173.0" layoutY="225.0" prefWidth="57.0" progress="0.0" radius="40.0" scaleX="5.0" scaleY="5.0" scaleZ="0.0" startingAngle="90.0" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="225.0">
                            <effect>
                               <Glow />

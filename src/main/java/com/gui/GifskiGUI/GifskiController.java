@@ -25,7 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.commons.io.FileUtils;
-
+import javafx.scene.web.WebView;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
@@ -78,7 +78,11 @@ public class GifskiController {
     @FXML
     private AnchorPane spinpane;
 
-    public GifskiController() {
+
+    @FXML
+    public void initialize()
+    {
+
 
     }
 
@@ -457,7 +461,15 @@ public class GifskiController {
         success.setText("Processing Image....");
         success.setFill(Color.YELLOW);
         success.setOpacity(1);
-        spin.setOpacity(1);
+
+        FadeTransition spinin = new FadeTransition();
+        spinin = (FadeTransition) Transit(spinin,2000,spinpane,0,1);
+        spinpane.setVisible(true);
+        spin.setVisible(true);
+        spinin.setInterpolator(Interpolator.EASE_BOTH);
+        spinin.play();
+
+
         spin.setProgress(0);
         System.out.println(quality);
         String gifskiCall = constructCMD(inputFile.getText(),
@@ -481,7 +493,15 @@ public class GifskiController {
                     return null;
                 }
             };
-            task.setOnSucceeded(e -> spinpane.setVisible(false));
+            task.setOnSucceeded(e -> {
+                FadeTransition f = new FadeTransition();
+
+
+                FadeTransition pane = (FadeTransition) Transit(f,1000,spinpane,1,0);
+                pane.setOnFinished(a->{spin.setVisible(false);spinpane.setVisible(false);});
+                pane.play();
+
+            });
             new Thread(task).start();
 
         } catch (Exception e) {
@@ -501,7 +521,7 @@ public class GifskiController {
         Process p = builder.start();
 
         BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        spinpane.setVisible(true);
+
 
         while (true) {
             try {
@@ -524,6 +544,7 @@ public class GifskiController {
 
                         timeline.play();
                         spin.setProgress(prog);
+
 
                     } catch (NumberFormatException a) {
 
@@ -585,4 +606,29 @@ public class GifskiController {
 
 
     }
+
+
+    private Transition Transit(Transition transition, int time, Node node,double from, double to){
+        if(transition.getClass() == FadeTransition.class ) {
+
+
+            transition = (FadeTransition) transition;
+            ((FadeTransition) transition).setDuration(Duration.millis(time));
+            ((FadeTransition) transition).setFromValue(from);
+            ((FadeTransition) transition).setToValue(to);
+            ((FadeTransition) transition).setNode(node);
+        }
+        else if(transition.getClass() == TranslateTransition.class){
+            transition = (TranslateTransition) transition;
+            ((TranslateTransition) transition).setDuration(Duration.millis(time));
+            ((TranslateTransition) transition).setFromX(from);
+            ((TranslateTransition) transition).setFromX(to);
+            ((TranslateTransition) transition).setNode(node);
+        }
+        return transition;
+
+
+    }
+
+
 }
