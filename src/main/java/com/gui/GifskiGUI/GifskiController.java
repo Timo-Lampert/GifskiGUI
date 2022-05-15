@@ -38,7 +38,7 @@ public class GifskiController {
     public Stage stage;
     @FXML
     GridPane intropane;
-    String img;
+    String imgpath;
     String saveTo;
     int quality = 50;
     @FXML
@@ -110,32 +110,58 @@ public class GifskiController {
         prev2.setOpacity(0);
         prev3.setOpacity(0);
         initialuserSetPath = dir.getParent();
+
         File[] files = new File(dir.getParent()).listFiles((dir1, name) -> name.toLowerCase().endsWith(".png"));
+        Image badImg;
         if (files == null) {
             displayAlert("No valid png files detected", "only png files are valid.");
             return;
         }
+        if(imagesValid(files) != null)
+        {
+            badImg=imagesValid(files);
+            displayAlert("Invalid width/height","One or more images dont have the same width/height: "+badImg.getUrl());
+            return;
+        }
+
+
+
         File[] all = new File(dir.getParent()).listFiles();
 
+
+
         if (files.length < all.length) {
-            displayAlert("non-png files detected", "PNG Images have been moved to a temp. directory", Alert.AlertType.WARNING);
-
+            displayAlert("Non png files detected","Only PNG files are supported. Only valid files have been added to selection", Alert.AlertType.INFORMATION);
         }
-        String newDir;
-        try {
+            success.setOpacity(1);
+            success.setText("Files moved to temp directory for compability");
+            success.setFill(Color.BLUEVIOLET);
+            FadeTransition fd = new FadeTransition();
+            fd.setFromValue(1);
+            fd.setToValue(0);
+            fd.setDuration(Duration.millis(2500));
+            fd.setDelay(Duration.millis(5000));
+            fd.setNode(success);
+            fd.setInterpolator(Interpolator.EASE_BOTH);
+            fd.play();
 
-            newDir = moveFilesToTMP(files);
 
-            Image image = new Image(new File(newDir).listFiles()[0].toURI().toString());
-            realimg = image;
-            this.preview.setImage(image);
-            this.img = newDir;
-            inputFile.setText(newDir);
-            width.setText("" + image.widthProperty().intValue());
-            height.setText("" + image.heightProperty().intValue());
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+            String newDir;
+            try {
+
+                newDir = moveFilesToTMP(files);
+
+                Image image = new Image(new File(newDir).listFiles()[0].toURI().toString());
+                realimg = image;
+                this.preview.setImage(image);
+                this.imgpath = newDir;
+                inputFile.setText(newDir);
+                width.setText("" + image.widthProperty().intValue());
+                height.setText("" + image.heightProperty().intValue());
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+
         //set 2 othe rpreview images with a fade in
         if (files.length > 1) {
             prev2.setImage(new Image(files[1].toURI().toString()));
@@ -162,16 +188,37 @@ public class GifskiController {
 
     }
 
+    private Image imagesValid(File[] files) {
+        Image reference = new Image(files[0].toURI().toString());
+        for (File f: files
+        ) {
+            Image img = new Image(f.toURI().toString());
+            if(img.getWidth() != reference.getWidth() && img.getHeight() != reference.getHeight()){
+                return img;
+            }
+        }
+        return null;
+    }
+
+
+    TranslateTransition ts;
+
     @FXML
     protected void nextSLide() {
+        if(pane1.getTranslateX()<=-200 || (ts!=null&&ts.getStatus() == Animation.Status.RUNNING)){
+            return;
+        }
+
 
         FadeTransition f2 = new FadeTransition();
+
         f2.setDuration(Duration.millis(200));
         f2.setFromValue(1);
         f2.setToValue(0);
         f2.setNode(pane1);
         f2.play();
         TranslateTransition translate = new TranslateTransition();
+        ts = translate;
         translate.setByX(-300);
         translate.setDuration(Duration.millis(500));
         translate.setNode(pane1);
@@ -209,18 +256,14 @@ public class GifskiController {
         f.setNode(intropane);
         f.play();
         TranslateTransition translate = new TranslateTransition();
-        translate.setByX(-400);
+        translate.setByY(-400);
         translate.setDuration(Duration.millis(1000));
         translate.setNode(intropane);
 
         translate.setInterpolator(Interpolator.EASE_BOTH);
         translate.play();
         translate.setOnFinished(s -> {
-                    intropane.setTranslateX(-500);
                     intropane.setVisible(false);
-                    intropane.setDisable(true);
-                    anchpane.setVisible(false);
-                    anchpane.setDisable(true);
                 }
         );
 
@@ -392,13 +435,14 @@ public class GifskiController {
     public void convert() throws IOException {
         setQuality();
 
+
         if(outputFile.getText().equals("")){
             displayAlert("Invalid path","Invalid Output path");
             return;
         }
 
         if(!(new File(inputFile.getText()).exists())){
-            displayAlert("Invalid path","Invalid Output path");
+            displayAlert("Invalid path","Invalid Input path");
             return;
         }
 
