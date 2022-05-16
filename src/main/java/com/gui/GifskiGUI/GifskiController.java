@@ -488,7 +488,7 @@ public class GifskiController  {
 
         if (repeat.getText().equals("")) {
 
-            repeat.setText(repeat.getPromptText());
+            repeat.setText("0"); //default prompt text = infinite
         }
         if (fps.getText().equals("")) {
 

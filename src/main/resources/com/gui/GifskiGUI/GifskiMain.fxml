@@ -149,7 +149,7 @@
                               <Glow level="1.0" />
                            </effect>
                         </MFXProgressSpinner>
-                        <MFXTextField id="settingbutton" fx:id="repeat" floatingText="Repeat" onKeyReleased="#intValidator" onMouseEntered="#scaleOnMOuseOver" onMouseExited="#scaledownMouseExit" promptText="0" textLimit="90" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <MFXTextField id="settingbutton" fx:id="repeat" floatingText="Loop Count" onKeyReleased="#intValidator" onMouseEntered="#scaleOnMOuseOver" onMouseExited="#scaledownMouseExit" promptText="infinite" textLimit="90" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="77.13671875" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <ImageView id="preview" fx:id="prev3" fitHeight="93.0" fitWidth="83.0" layoutX="135.0" layoutY="23.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <image>
@@ -317,7 +317,7 @@
                       <RowConstraints maxHeight="93.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <AnchorPane fx:id="anchpane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right bottom, rgba(199,42,176,0.7312324759005165) 3%, rgba(47,20,200,0.9796918596540178) 50%, rgba(57,57,57,0.9413165095139618) 98%); -fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <AnchorPane fx:id="anchpane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to right bottom, rgba(199,42,176,0.4312324759005165) 3%, rgba(47,20,200,0.5796918596540178) 50%, rgba(57,57,57,0.9413165095139618) 98%); -fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <Pane fx:id="pane1" layoutX="50.0" layoutY="24.0" prefHeight="432.0" prefWidth="334.0" style="-fx-background-color: #111111; -fx-border-style: solid; -fx-border-image-width: 3; -fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 3;" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="24.0">
                                  <children>
