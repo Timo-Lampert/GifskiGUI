@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -29,9 +30,11 @@ import javafx.scene.web.WebView;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
+import java.net.URL;
 import java.nio.file.Files;
+import java.util.ResourceBundle;
 
-public class GifskiController {
+public class GifskiController  {
 
     @FXML
     public MFXTextField fps;
@@ -78,18 +81,49 @@ public class GifskiController {
     @FXML
     private AnchorPane spinpane;
 
-
-    @FXML
-    public void initialize()
-    {
-
-
+    public void initialize(){
+        if(intropane != null) {
+            intropane.setVisible(true);
+        }
     }
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+    @FXML
+    private void scaledownMouseExit(Event e){
+        Node n =(Node)e.getSource();
+        String nid=n.getId();
+        ScaleTransition x = new ScaleTransition(Duration.millis(200),n);
+        x.setFromX(1.1);
+        x.setInterpolator(Interpolator.EASE_BOTH);
+        x.setToX(1);
+        ScaleTransition y = new ScaleTransition(Duration.millis(200),n);
+        y.setFromY(1.1);
+        y.setInterpolator(Interpolator.EASE_BOTH);
+        y.setToY(1);
+        x.play();
+        y.play();
 
+
+    }
+    @FXML
+    private void scaleOnMOuseOver(Event e){
+        Node n =(Node)e.getSource();
+        String nid=n.getId();
+        ScaleTransition x = new ScaleTransition(Duration.millis(200),n);
+        x.setFromX(1);
+        x.setInterpolator(Interpolator.EASE_BOTH);
+        x.setToX(1.1);
+        ScaleTransition y = new ScaleTransition(Duration.millis(200),n);
+        y.setFromY(1);
+        y.setInterpolator(Interpolator.EASE_BOTH);
+        y.setToY(1.1);
+        x.play();
+        y.play();
+
+
+    }
     @FXML
     protected void setOutputFile(ActionEvent action) throws InvalidClassException {
         File dir = getFilePath(true);
@@ -158,6 +192,8 @@ public class GifskiController {
                 Image image = new Image(new File(newDir).listFiles()[0].toURI().toString());
                 realimg = image;
                 this.preview.setImage(image);
+                FadeTransition pretransit = (FadeTransition) Transit(new FadeTransition(),500,preview,0,1);
+                pretransit.play();
                 this.imgpath = newDir;
                 inputFile.setText(newDir);
                 width.setText("" + image.widthProperty().intValue());
@@ -182,7 +218,7 @@ public class GifskiController {
 
             FadeTransition f1 = new FadeTransition();
             f1.setFromValue(0);
-            f1.setToValue(0.5);
+            f1.setToValue(0.25);
             f1.setDelay(Duration.millis(250));
             f1.setDuration(Duration.millis(500));
             f1.setNode(prev3);
@@ -552,7 +588,7 @@ public class GifskiController {
                 }
                 System.out.println(line);
                 if (line.contains("gifski created")) {
-                    success.setFill(Color.GREEN);
+                    success.setFill(Color.LIMEGREEN);
                     success.setOpacity(1);
                     success.setText("Gif created successfully");
                     Desktop.getDesktop().open(new File(outputFile.getText()));
@@ -629,6 +665,7 @@ public class GifskiController {
 
 
     }
+
 
 
 }
