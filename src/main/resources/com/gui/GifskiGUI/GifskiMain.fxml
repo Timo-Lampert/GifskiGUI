@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bpane" minHeight="500.0" minWidth="500.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #181818;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.GifskiGUI.GifskiController">
+<BorderPane fx:id="bpane" minHeight="500.0" minWidth="500.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #181818;" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gui.GifskiGUI.GifskiController">
     <padding>
         <Insets bottom="0" left="0" right="0" top="0" />
     </padding>
