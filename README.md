@@ -1,7 +1,7 @@
 # Gifski Windows GUI
 
 Application to Generate [Gifski](https://github.com/ImageOptim/gifski) CMDs through a visual Interface.
-Still in an Experimental phase.
+Still in an Experimental phase. Using not recommended at this time.
 
 ---
 ## Images
