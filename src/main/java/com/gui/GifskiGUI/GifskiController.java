@@ -70,6 +70,8 @@ public class GifskiController {
     @FXML
     HBox hbox;
     @FXML
+    ImageView lock;
+    @FXML
     AnchorPane anchpane;
     String initialuserSetPath;
     @FXML
@@ -81,6 +83,8 @@ public class GifskiController {
     @FXML
     private AnchorPane spinpane;
 
+    double aspectratio;
+    private boolean lockwidthheight = true;
     public void initialize() {
         if (intropane != null) {
             intropane.setVisible(true);
@@ -90,6 +94,46 @@ public class GifskiController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+    //aspect lock for width text
+    @FXML
+    private void setLockedWidth(Event action){
+        intValidator(action);
+        if(lockwidthheight){
+            int width = Integer.parseInt(this.width.getText());
+            int height=Integer.parseInt(this.height.getText());
+            this.height.setText(""+(int)((width)*aspectratio));
+        }
+    }
+    //aspect lock for height text
+    @FXML
+    private void setLockedHeight(Event action){
+        intValidator(action);
+        if(lockwidthheight){
+            int width = Integer.parseInt(this.width.getText());
+            int height=Integer.parseInt(this.height.getText());
+            this.width.setText(""+(int)((height)/aspectratio));
+        }
+    }
+    @FXML
+    private void toggleAspectLock(){
+        lockwidthheight = !lockwidthheight;
+        if (lockwidthheight) {
+
+            lock.setImage(new Image(new File("src/main/resources/com/gui/GifskiGUI/lock-icon-11.png").toURI().toString()));
+        } else {
+            lock.setImage(new Image(new File("src/main/resources/com/gui/GifskiGUI/lock-icon-12.png").toURI().toString()));
+        }
+
+    }
+
+
+    private double setAspectratio(){
+        return (double)Integer.parseInt(height.getText())/(double)Integer.parseInt(width.getText());
+    }
+    private void lockWidthToHeight(){
+        width = height;
+    }
+
 
     @FXML
     private void scaledownMouseExit(Event e) {
@@ -197,6 +241,7 @@ public class GifskiController {
             this.imgpath = newDir;
             inputFile.setText(newDir);
             width.setText("" + image.widthProperty().intValue());
+            aspectratio = image.heightProperty().doubleValue()/image.widthProperty().doubleValue();
             height.setText("" + image.heightProperty().intValue());
         } catch (IOException e) {
             System.out.println(e);
@@ -628,6 +673,7 @@ public class GifskiController {
 
 
     }
+
 
 
     public void setScene(String sceneFileName, Node node) throws IOException {
