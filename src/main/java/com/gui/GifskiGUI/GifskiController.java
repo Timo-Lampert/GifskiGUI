@@ -32,6 +32,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class GifskiController {
@@ -83,7 +84,8 @@ public class GifskiController {
     @FXML
     private AnchorPane spinpane;
 
-    double aspectratio;
+    double aspectratio=1;
+
     private boolean lockwidthheight = true;
     public void initialize() {
         if (intropane != null) {
@@ -99,9 +101,12 @@ public class GifskiController {
     private void setLockedWidth(Event action){
         intValidator(action);
         if(lockwidthheight){
-            int width = Integer.parseInt(this.width.getText());
-            int height=Integer.parseInt(this.height.getText());
-            this.height.setText(""+(int)((width)*aspectratio));
+            try {
+                int width = Integer.parseInt(this.width.getText());
+                this.height.setText("" + (int) ((width) * aspectratio));
+            }catch (NumberFormatException ignored){
+
+            }
         }
     }
     //aspect lock for height text
@@ -109,16 +114,22 @@ public class GifskiController {
     private void setLockedHeight(Event action){
         intValidator(action);
         if(lockwidthheight){
-            int width = Integer.parseInt(this.width.getText());
-            int height=Integer.parseInt(this.height.getText());
-            this.width.setText(""+(int)((height)/aspectratio));
+            try {
+                int height = Integer.parseInt(this.height.getText());
+                this.width.setText("" + (int) ((height) / aspectratio));
+            }catch (NumberFormatException ignored){
+
+            }
         }
     }
+    //click on lock icon
     @FXML
-    private void toggleAspectLock(){
+    private void toggleAspectLock(Event event){
         lockwidthheight = !lockwidthheight;
+
         if (lockwidthheight) {
 
+            aspectratio=setAspectratio();
             lock.setImage(new Image(new File("src/main/resources/com/gui/GifskiGUI/lock-icon-11.png").toURI().toString()));
         } else {
             lock.setImage(new Image(new File("src/main/resources/com/gui/GifskiGUI/lock-icon-12.png").toURI().toString()));
@@ -130,9 +141,7 @@ public class GifskiController {
     private double setAspectratio(){
         return (double)Integer.parseInt(height.getText())/(double)Integer.parseInt(width.getText());
     }
-    private void lockWidthToHeight(){
-        width = height;
-    }
+
 
 
     @FXML
@@ -218,12 +227,8 @@ public class GifskiController {
         success.setOpacity(1);
         success.setText("Files moved to temp directory for compability");
         success.setFill(Color.BLUEVIOLET);
-        FadeTransition fd = new FadeTransition();
-        fd.setFromValue(1);
-        fd.setToValue(0);
-        fd.setDuration(Duration.millis(2500));
+        FadeTransition fd = (FadeTransition) Transit(new FadeTransition(),2500,success,1,0);
         fd.setDelay(Duration.millis(5000));
-        fd.setNode(success);
         fd.setInterpolator(Interpolator.EASE_BOTH);
         fd.play();
 
@@ -243,6 +248,7 @@ public class GifskiController {
             width.setText("" + image.widthProperty().intValue());
             aspectratio = image.heightProperty().doubleValue()/image.widthProperty().doubleValue();
             height.setText("" + image.heightProperty().intValue());
+
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -440,11 +446,17 @@ public class GifskiController {
     protected void intValidator(Event action) {
         TextField val = ((TextField) action.getSource());
 
-        if (isInteger(val.getText()) || val.getText().equals("")) {
-            return;
+        char[] charcters = val.getText().toCharArray();
+        String resulttext="";
+        for (int i = 0; i < charcters.length; i++) {
+            if(isInteger(charcters[i]+"")){
+                resulttext+=charcters[i];
+            }else {
+                displayAlert("Not numeric value", "Select a number for this Textfield");
+            }
         }
-        val.setText(val.getText().substring(0, val.getText().length() - 1));
-        displayAlert("Not numeric value", "Select a number for this Textfield");
+        val.setText(resulttext);
+
 
     }
 
