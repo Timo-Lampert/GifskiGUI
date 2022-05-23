@@ -19,7 +19,7 @@ public class GifskiGUI extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);
 
         stage.setTitle("GifGUI");
-        stage.getIcons().add(new Image("file:src/main/resources/com/gui/GifskiGUI/guiicon.png"));
+        stage.getIcons().add(new Image("file:src/main/resources/com/gui/GifskiGUI/guiicon.ico"));
         stage.setScene(scene);
 
         stage.show();

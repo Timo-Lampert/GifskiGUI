@@ -183,6 +183,9 @@ public class GifskiController {
     @FXML
     protected void setOutputFile(ActionEvent action) throws InvalidClassException {
         File dir = getFilePath(true);
+        if(dir ==null){
+            return;
+        }
         outputFile.setText(dir.getAbsolutePath());
         //Instantiating TranslateTransition class
         TranslateTransition translate = new TranslateTransition();
@@ -199,8 +202,12 @@ public class GifskiController {
      */
     @FXML
     protected void setInputFile() throws InvalidClassException {
+        File dir;
 
-        File dir = getFilePath(false);
+            dir = getFilePath(false);
+        if(dir ==null){
+            return;
+        }
         prev2.setOpacity(0);
         prev3.setOpacity(0);
         initialuserSetPath = dir.getParent();
@@ -413,7 +420,7 @@ public class GifskiController {
             alert.setContentText("Choose a filepath");
         }
         alert.showAndWait();
-        throw new InvalidClassException("Bad FileType");
+        return null;
 
     }
 
@@ -453,9 +460,10 @@ public class GifskiController {
                 resulttext+=charcters[i];
             }else {
                 displayAlert("Not numeric value", "Select a number for this Textfield");
+                val.setText(resulttext);
             }
         }
-        val.setText(resulttext);
+
 
 
     }
