@@ -8,9 +8,10 @@ Still in an Experimental phase. Using not recommended at this time.
 
 
 
+![](intro.png )
 ![](GUIsnap.png )
 
-![](img.png)
+![](loading.png)
 -----
 ## Usage
 Clone repo into an IDE and execute the main. 

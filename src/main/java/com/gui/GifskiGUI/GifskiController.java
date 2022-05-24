@@ -39,6 +39,10 @@ public class GifskiController {
 
     @FXML
     public MFXTextField fps;
+
+    @FXML
+    private Text filedesttext;
+
     public Stage stage;
     @FXML
     GridPane intropane;
@@ -126,19 +130,22 @@ public class GifskiController {
     @FXML
     private void toggleAspectLock(Event event){
         lockwidthheight = !lockwidthheight;
-
+        try {
+            aspectratio = setAspectratio();
+        }catch (Exception ignore){
+            //if unable to parse or attempt to divide by 0 no changes will be made to the ratio
+        }
         if (lockwidthheight) {
 
-            aspectratio=setAspectratio();
-            lock.setImage(new Image(new File("src/main/resources/com/gui/GifskiGUI/lock-icon-11.png").toURI().toString()));
+            lock.setOpacity(1);
         } else {
-            lock.setImage(new Image(new File("src/main/resources/com/gui/GifskiGUI/lock-icon-12.png").toURI().toString()));
+            lock.setOpacity(0.5);
         }
 
     }
 
 
-    private double setAspectratio(){
+    private double setAspectratio()throws Exception{
         return (double)Integer.parseInt(height.getText())/(double)Integer.parseInt(width.getText());
     }
 
@@ -214,7 +221,7 @@ public class GifskiController {
 
         File[] files = new File(dir.getParent()).listFiles((dir1, name) -> name.toLowerCase().endsWith(".png"));
         Image badImg;
-        if (files == null) {
+        if (files.length <1) {
             displayAlert("No valid png files detected", "only png files are valid.");
             return;
         }
@@ -520,9 +527,9 @@ public class GifskiController {
 
         String path = "cd " + System.getProperty("user.dir") + "\\src\\main\\java\\com\\gui\\GifskiGUI\\gifskiwin\\ && " + "gifski.exe ";
         //currently takes the entire folder
-        String in = input + "/*";
+        String in = input + "\\*";
         String framerate = " --fps " + fps;
-        String out = " --output " + output;
+        String out = " --output " + '"'+output+'"';
         String sizeX = " --width " + width;
         String sizeY = " --height " + height;
         String qual = " --quality " + quality;
@@ -586,6 +593,7 @@ public class GifskiController {
         spin.setVisible(true);
         spinin.setInterpolator(Interpolator.EASE_BOTH);
         spinin.play();
+        filedesttext.setText("Creating File: "+outputFile.getText());
 
 
         spin.setProgress(0);
